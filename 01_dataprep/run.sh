@@ -4,6 +4,16 @@ mkdir -p out
 
 CUR_DIR=$(pwd)
 
+if [ -z "$1" ]; then
+    echo "Provide a directory with wav-files as first argument"
+    exit
+fi
+
+if [ -z "$2" ]; then
+    echo "Provide a directory with txt-files as second argument"
+    exit
+fi
+
 WAV_DIR=$1
 TXT_DIR=$2
 

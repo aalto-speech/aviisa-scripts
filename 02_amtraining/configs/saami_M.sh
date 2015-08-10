@@ -1,7 +1,7 @@
 export TRAIN_NAME='saami_male'
 export TRAIN_DIR="$GROUP_DIR/p/sami/models/$TRAIN_NAME"
 
-export TRAIN_IM="$GROUP_DIR/u/jpleino1/saami2015/sami_ph/samiph2015a"
+export TRAIN_IM="$GROUP_DIR/p/saami2015/sami_ph/samiph2015a"
 
 export TRAIN_RECIPE="$TRAIN_DIR/recipe"
 export TRAIN_LEX="$TRAIN_DIR/train.lex"

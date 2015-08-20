@@ -12,9 +12,9 @@ export TRAIN_WAVLIST="$GROUP_DIR/p/sami/uit-sme-F/train.scp"
 
 export TRAIN_GAUSSIANS=12000
 export TRAIN_BATCHES=5
-export TRAIN_CLUSTERS=5
+#export TRAIN_CLUSTERS=5
 
 export TRAIN_SCRIPTDIR="$GROUP_DIR/Modules/src/git/AaltoASR/aku/scripts"
-export TRAIN_TIERULES="$TRAIN_SCRIPTDIR/sami_rules.txt";
+export TRAIN_TIERULES="$BASE_DIR/rules/sami.txt";
 export TRAIN_BINDIR="$GROUP_DIR/Modules/src/git/AaltoASR/build/aku"
 

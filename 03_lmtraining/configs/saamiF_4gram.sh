@@ -1,4 +1,4 @@
-export TRAIN_NAME='saamif_4gram_word'
+export TRAIN_NAME='saamiF_4gram_word'
 export TRAIN_DIR="$GROUP_DIR/p/sami/lmmodels/$TRAIN_NAME"
 
 export SOURCE_FILES=(

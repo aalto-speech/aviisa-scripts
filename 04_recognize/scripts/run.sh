@@ -7,10 +7,19 @@ if [ -z "$1" ]; then
     exit
 fi
 
-source "$1"
+. "$1"
 
-for AMDIR in $TEST_AM; do
-    for LMDIR in $TEST_LM; do
+
+echo $TEST_LM
+echo $TEST_AM
+
+TEST_LM=(${TEST_LM//:/ })
+TEST_AM=(${TEST_AM//:/ })
+
+for AMDIR in ${TEST_AM[@]}; do
+    for LMDIR in ${TEST_LM[@]}; do
+        echo "AM " $AMDIR
+        echo "LM " $LMDIR
         export KEY=$(basename $AMDIR)/$(basename $LMDIR)
         export AM=$AMDIR
         export LM=$LMDIR/model_pruned

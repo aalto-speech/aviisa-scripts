@@ -11,6 +11,8 @@ source "$1"
 
 mkdir -p $TRAIN_DIR
 
+SOURCE_FILES=(${SOURCE_FILES//:/ })
+echo $SOURCE_FILES
 
 if [ ! -z ${MORPH_TRAIN_OPTIONS+x} ]; then
 

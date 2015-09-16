@@ -25,7 +25,7 @@ if [ ! -z ${MORPH_TRAIN_OPTIONS+x} ]; then
 
 else
     cat ${SOURCE_FILES[@]} | \
-    sed 's/(.*$//' | \
+    sed 's/(.*$//' \
     > $TRAIN_DIR/lm_source_txt
 
 fi

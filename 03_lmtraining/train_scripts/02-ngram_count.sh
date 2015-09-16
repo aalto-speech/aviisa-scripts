@@ -14,10 +14,7 @@ INTERPOLATE=$(seq 1 $NGRAM_ORDER | sed "s/^/-interpolate/" | tr "\n" " ")
 KNDISCOUNT=$(seq 1 $NGRAM_ORDER | sed "s/^/-kndiscount/" | tr "\n" " ")
 
 
-mkdir -p $TRAIN_DIR
-
-cat $SOURCE_FILES |
-sed 's/(.*$//' | \
+cat $TRAIN_DIR/lm_source_txt | \
 ngram-count \
   -order $NGRAM_ORDER \
   $INTERPOLATE \

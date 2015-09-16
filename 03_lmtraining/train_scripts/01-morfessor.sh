@@ -12,7 +12,7 @@ source "$1"
 mkdir -p $TRAIN_DIR
 
 
-if [ -z $MORPH_TRAIN_OPTIONS ]; then
+if [ ! -z ${MORPH_TRAIN_OPTIONS+x} ]; then
 
     cat $SOURCE_FILES | \
     sed 's/(.*$//' | \

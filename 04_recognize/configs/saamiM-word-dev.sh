@@ -10,3 +10,5 @@ export TEST_LM="$GROUP_DIR/p/sami/lmmodels/saamiM_2gram_word":"$GROUP_DIR/p/sami
 
 export TEST_TRN="$GROUP_DIR/p/sami/uit-sme-M/devel.trn"
 export TEST_WAVLIST="$GROUP_DIR/p/sami/uit-sme-M/devel.scp"
+
+export ONE_BYTE_ENCODING=ISO-8859-10

@@ -34,6 +34,7 @@ print "</s>(1.0)\n";
 
 while (<$INPUT>) {
 	chomp;
+	continue if /[<-]/;
 	my $word = decode( "utf8", $_ );
 
 	if ( $word eq '' ) {

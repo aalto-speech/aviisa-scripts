@@ -18,11 +18,11 @@ TEST_AM=(${TEST_AM//:/ })
 
 
 function make_ler {
-   cat $1 | sed 's/(.*$//' | sed "s/ /_/g" | sed "s/\w/& /g" | paste -d" " - $2 > $3
+   cat $1 | sed "s/(.*$//" | sed "s/ /_/g" | sed "s/\w/& /g" | paste -d" " - $2 > $3
 }
 
 function encode {
-    iconv -f UTF-8 -t ONE_BYTE_ENCODING < $1 > $2
+    iconv -f UTF-8 -t $ONE_BYTE_ENCODING < $1 > $2
 }
 
 
@@ -47,7 +47,7 @@ for AMDIR in ${TEST_AM[@]}; do
         mkdir -p $RESULTS_DIR
         recognize-batch.sh | tee ${RESULTS_DIR}/log
 
-        hyp_trn=$(grep "^Wrote" ${RESULTS_DIR}/log | sed s/^Wrote // | sed "s/\.$//")
+        hyp_trn=$(grep "^Wrote" ${RESULTS_DIR}/log | sed "s/^Wrote //" | sed "s/\.$//")
 #        hyp_trn=${RESULTS_DIR}/$(ls -t ${RESULTS_DIR} | grep -v log | grep -v sclite | head -n1)
 
         echo $hyp_trn

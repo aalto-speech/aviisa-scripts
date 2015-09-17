@@ -15,6 +15,7 @@ echo $TEST_AM
 
 TEST_LM=(${TEST_LM//:/ })
 TEST_AM=(${TEST_AM//:/ })
+LM_SCALES=(${TEST_LM_SCALES//:/ })
 
 
 function make_ler {
@@ -28,6 +29,7 @@ function encode {
 
 for AMDIR in ${TEST_AM[@]}; do
     for LMDIR in ${TEST_LM[@]}; do
+        for LM_SCALE in ${LM_SCALES[@]}; do
         echo "AM " $AMDIR
         echo "LM " $LMDIR
         export KEY=$(basename $AMDIR)/$(basename $LMDIR)
@@ -37,7 +39,7 @@ for AMDIR in ${TEST_AM[@]}; do
         export DICTIONARY=$LMDIR/vocab
         export FSA=1
         export BEAM=280
-        export LM_SCALE=35
+        export LM_SCALE
         export TOKEN_LIMIT=100000
         export AUDIO_LIST=$TEST_WAVLIST
         export RESULTS_DIR=$TEST_DIR/recognitions/${KEY}

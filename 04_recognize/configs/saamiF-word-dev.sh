@@ -2,6 +2,7 @@
 export TEST_NAME="saamiF-word-dev"
 export TEST_DIR="$GROUP_DIR/p/sami/recog_tests/$TEST_NAME"
 
+export TEST_LM_SCALES=20:25:30:35:40:45
 
 export TEST_AM="$GROUP_DIR/p/sami/models/saami_female/hmm/saami_female_11.8.2015_22"
 

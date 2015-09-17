@@ -73,3 +73,4 @@ for AMDIR in ${TEST_AM[@]}; do
         sclite -i wsj -f 0 -h ${RESULTS_DIR}/tmp/hyp_ler.iso.trn -r ${RESULTS_DIR}/tmp/ref_ler.iso.trn | tee ${hyp_trn}.sclite_ler
     done
 done
+done

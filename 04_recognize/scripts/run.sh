@@ -34,7 +34,7 @@ for AMDIR in ${TEST_AM[@]}; do
         echo "LM " $LMDIR
         export KEY=$(basename $AMDIR)/$(basename $LMDIR)/LM${LM_SCALE}
         export AM=$AMDIR
-        export LM=$LMDIR/model_pruned
+        export LM=$LMDIR/$(basename $LMDIR)
         export LOOKAHEAD_LM=$LMDIR/model_la
         export DICTIONARY=$LMDIR/vocab
         export FSA=1
@@ -42,35 +42,37 @@ for AMDIR in ${TEST_AM[@]}; do
         export LM_SCALE
         export TOKEN_LIMIT=100000
         export AUDIO_LIST=$TEST_WAVLIST
-        export RESULTS_DIR=$TEST_DIR/recognitions/${KEY}
-        export RECOGNITIONS_DIR=$TEST_DIR/results/${KEY}
+        export RESULTS_DIR=$TEST_DIR/recognitions
+        export RECOGNITIONS_DIR=$TEST_DIR/results
         export GENERATE_LATTICES=1
 
-        mkdir -p $RESULTS_DIR
-        recognize-batch.sh | tee ${RESULTS_DIR}/log
+        mkdir -p ${RESULTS_DIR}/log/$KEY
+        recognize-batch.sh | tee ${RESULTS_DIR}/log/$KEY/log
 
         hyp_trn=$(grep "^Wrote" ${RESULTS_DIR}/log | sed "s/^Wrote //" | sed "s/\.$//")
 #        hyp_trn=${RESULTS_DIR}/$(ls -t ${RESULTS_DIR} | grep -v log | grep -v sclite | head -n1)
 
         echo $hyp_trn
 
-        mkdir -p ${RESULTS_DIR}/tmp
+        td=${RESULTS_DIR}/tmp/$KEY
 
-        grep -o "(.*$" $TEST_TRN > ${RESULTS_DIR}/tmp/namelist
+        mkdir -p $td
 
-        make_ler $hyp_trn ${RESULTS_DIR}/tmp/namelist ${RESULTS_DIR}/tmp/hyp_ler.trn
-        make_ler $TEST_TRN ${RESULTS_DIR}/tmp/namelist ${RESULTS_DIR}/tmp/ref_ler.trn
+        grep -o "(.*$" $TEST_TRN > ${td}/namelist
 
-        encode ${RESULTS_DIR}/tmp/hyp_ler.trn ${RESULTS_DIR}/tmp/hyp_ler.iso.trn
-        encode ${RESULTS_DIR}/tmp/ref_ler.trn ${RESULTS_DIR}/tmp/ref_ler.iso.trn
+        make_ler $hyp_trn ${td}/namelist ${td}/hyp_ler.trn
+        make_ler $TEST_TRN ${td}/namelist ${td}/ref_ler.trn
 
-        encode $hyp_trn ${RESULTS_DIR}/tmp/hyp_wer.iso.trn
-        encode $TEST_TRN ${RESULTS_DIR}/tmp/ref_wer.iso.trn
+        encode ${td}/hyp_ler.trn ${td}/hyp_ler.iso.trn
+        encode ${td}/ref_ler.trn ${td}/ref_ler.iso.trn
+
+        encode $hyp_trn ${td}/hyp_wer.iso.trn
+        encode $TEST_TRN ${td}/ref_wer.iso.trn
 
 
 
-        sclite -i wsj -f 0 -h ${RESULTS_DIR}/tmp/hyp_wer.iso.trn -r ${RESULTS_DIR}/tmp/ref_wer.iso.trn | tee ${hyp_trn}.sclite_wer
-        sclite -i wsj -f 0 -h ${RESULTS_DIR}/tmp/hyp_ler.iso.trn -r ${RESULTS_DIR}/tmp/ref_ler.iso.trn | tee ${hyp_trn}.sclite_ler
+        sclite -i wsj -f 0 -h ${td}/hyp_wer.iso.trn -r ${td}/ref_wer.iso.trn | tee ${hyp_trn}.sclite_wer
+        sclite -i wsj -f 0 -h ${td}/hyp_ler.iso.trn -r ${td}/ref_ler.iso.trn | tee ${hyp_trn}.sclite_ler
     done
 done
 done

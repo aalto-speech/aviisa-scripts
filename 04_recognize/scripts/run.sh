@@ -32,7 +32,7 @@ for AMDIR in ${TEST_AM[@]}; do
         for LM_SCALE in ${LM_SCALES[@]}; do
         echo "AM " $AMDIR
         echo "LM " $LMDIR
-        export KEY=$(basename $AMDIR)/$(basename $LMDIR)
+        export KEY=$(basename $AMDIR)/$(basename $LMDIR)/LM${LM_SCALE}
         export AM=$AMDIR
         export LM=$LMDIR/model_pruned
         export LOOKAHEAD_LM=$LMDIR/model_la

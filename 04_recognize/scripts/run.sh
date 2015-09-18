@@ -47,9 +47,9 @@ for AMDIR in ${TEST_AM[@]}; do
         export GENERATE_LATTICES=1
 
         mkdir -p ${RESULTS_DIR}/log/$KEY
-        recognize-batch.sh | tee ${RESULTS_DIR}/log/$KEY/log
+        recognize-batch.sh | tee ${RESULTS_DIR}/log/${KEY}/log
 
-        hyp_trn=$(grep "^Wrote" ${RESULTS_DIR}/log | sed "s/^Wrote //" | sed "s/\.$//")
+        hyp_trn=$(grep "^Wrote" ${RESULTS_DIR}/log/${KEY}/log | sed "s/^Wrote //" | sed "s/\.$//")
 #        hyp_trn=${RESULTS_DIR}/$(ls -t ${RESULTS_DIR} | grep -v log | grep -v sclite | head -n1)
 
         echo $hyp_trn

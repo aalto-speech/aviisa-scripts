@@ -9,11 +9,11 @@ import sys
 def main(txt_file, phn_file, transcript_file):
 
     phone_map = {v[0]: v[1].strip() for v in (l.split(None, 1) for l in open('data/phone_map', encoding='utf-8'))}
-
+    abbr_map = {v[0]: v[1].strip() for v in (l.split(None, 1) for l in open('data/sme/abbreviations', encoding='utf-8'))}
     allowed_chars = set(phone_map.keys()) | set(string.digits)
 
-    sentences = find_sentences(open(txt_file), allowed_chars)
-    sentences = fix_digits(sentences)
+    sentences = find_sentences(open(txt_file), allowed_chars, abbr_map)
+    fdsentences = fix_digits(sentences)
 
     phn = open(phn_file, "w", encoding="iso8859-15")
     tra = open(transcript_file, "w")
@@ -22,8 +22,8 @@ def main(txt_file, phn_file, transcript_file):
     index = 0
     bn = os.path.splitext(os.path.basename(txt_file))[0]
 
-    for sentence in sentences:
-        print("{} ({}_{:03})".format(" ".join(sentence), bn, index), file=tra)
+    for sentence, bssentence in zip(fdsentences, sentences):
+        print("{} ({}_{:03})".format(" ".join(bssentence), bn, index), file=tra)
         print("0 0 __", file=phn)
 
         phones = '_'
@@ -37,11 +37,11 @@ def main(txt_file, phn_file, transcript_file):
                 print("0 0 _", file=phn)
                 continue
 
-            lci = j -1
+            lci = j - 1
             while lci > 0 and phones[lci] == '_':
                 lci -= 1
 
-            rci = j +1
+            rci = j + 1
             while rci < len(phones) - 1 and phones[rci] == '_':
                 rci += 1
 
@@ -69,7 +69,7 @@ def fix_digits(sentences):
     return s
 
 
-def find_sentences(f, allowed_chars):
+def find_sentences(f, allowed_chars, abbr_map):
     """Return sentences in 2 dimensional (sentence, word) array.
     A sentence ends on a line break or a punctuation character . ! ?
     """
@@ -98,6 +98,12 @@ def find_sentences(f, allowed_chars):
             cur_word += c.lower()
 
     for line in f:
+        parts = line.split()
+        for p in parts:
+            if p in abbr_map:
+                p = abbr_map[p]
+            if any(c in string.digits for c in p):
+                p = p.split
         for c in line:
             if c.isspace():
                 finish_word()

@@ -3,17 +3,25 @@ import itertools
 import os
 import re
 import string
+from subprocess import Popen, PIPE
 import sys
+import collections
 
 
-def main(txt_file, phn_file, transcript_file):
+def main(txt_file, phn_file, transcript_file, langdat_dir):
 
-    phone_map = {v[0]: v[1].strip() for v in (l.split(None, 1) for l in open('data/phone_map', encoding='utf-8'))}
-    abbr_map = {v[0]: v[1].strip() for v in (l.split(None, 1) for l in open('data/sme/abbreviations', encoding='utf-8'))}
+    phone_map = {v[0]: v[1].strip() for v in (l.split(None, 1) for l in open('{}/phones'.format(langdat_dir), encoding='utf-8'))}
+    abbr_map = {v[0]: v[1].strip().split() for v in (l.split(None, 1) for l in open('{}/abbreviations'.format(langdat_dir), encoding='utf-8'))}
     allowed_chars = set(phone_map.keys()) | set(string.digits)
 
     sentences = find_sentences(open(txt_file), allowed_chars, abbr_map)
-    fdsentences = fix_digits(sentences)
+    def get_number_trans(word):
+        (trans, _) = Popen(['{}/number_to_words'.format(langdat_dir)], stdin=PIPE, stderr=PIPE, stdout=PIPE).communicate(word.encode('utf-8'))
+        return [trans.decode('utf-8').strip().split(',')[0]]
+
+    phsentences = to_phonetic_words(sentences, abbr_map, get_number_trans)
+
+    fdsentences = phsentences
 
     phn = open(phn_file, "w", encoding="iso8859-15")
     tra = open(transcript_file, "w")
@@ -29,6 +37,8 @@ def main(txt_file, phn_file, transcript_file):
         phones = '_'
         for word in sentence:
             for c in word:
+                if c == "\n":
+                    pass
                 phones += phone_map[c]
             phones += '_'
 
@@ -51,70 +61,68 @@ def main(txt_file, phn_file, transcript_file):
     print("0 0 __", file=phn)
 
 
-def fix_digits(sentences):
-    digit_map = {v[0]: v[1].strip() for v in (l.split(None, 1) for l in open('data/number_transcriptions', encoding='utf-8'))}
+def to_phonetic_words(sentences, abbr_map, digit_script):
+    ### this always pick only one possible phone transcription
 
-    def number_to_word(word):
-        nonlocal digit_map
-        if word.isdigit():
-            if word in digit_map:
-                return digit_map[word]
-            else:
-                exit("Please provide a transcription for {} in number_transcriptions".format(word))
-        return word
-
-    s = []
+    ready_sentences = []
     for sentence in sentences:
-        s.append(list(map(number_to_word, itertools.chain.from_iterable(re.split(r'(\d+)', w) for w in sentence))))
-    return s
+        cur_s = []
+        for word in sentence:
+            if word in abbr_map:
+                cur_s.extend(abbr_map[word])
+            elif word.isdigit():
+                cur_s.extend(digit_script(word))
+            else:
+                cur_s.append(word)
+
+        ready_sentences.append(cur_s)
+    return ready_sentences
 
 
-def find_sentences(f, allowed_chars, abbr_map):
+def find_sentences(f, allowed_chars, abbr_map, sentence_per_line=True):
     """Return sentences in 2 dimensional (sentence, word) array.
     A sentence ends on a line break or a punctuation character . ! ?
     """
     line_ends = ".!?"
 
-    cur_word = ""
     cur_sentence = []
     sentences = []
-
-    def finish_word():
-        nonlocal cur_word, cur_sentence
-        if len(cur_word) > 0:
-            cur_sentence.append(cur_word)
-        cur_word = ""
+    discards = collections.Counter()
 
     def finish_sentence():
-        finish_word()
         nonlocal cur_sentence, sentences
         if len(cur_sentence) > 0:
             sentences.append(cur_sentence)
         cur_sentence = []
 
-    def put_char(c):
-        nonlocal cur_word, allowed_chars
-        if c.lower() in allowed_chars:
-            cur_word += c.lower()
-
     for line in f:
-        parts = line.split()
+        parts = line.lower().split()
         for p in parts:
+            break_sentence = False
             if p in abbr_map:
-                p = abbr_map[p]
-            if any(c in string.digits for c in p):
-                p = p.split
-        for c in line:
-            if c.isspace():
-                finish_word()
-            elif c in line_ends:
+                #p = abbr_map[p]
+                cur_sentence.append(p)
+                continue
+
+            p = re.split('(\d+|[\(\)\\,]+)', p)
+
+            if len(p[-1])> 0 and p[-1][-1] in line_ends:
+                break_sentence = True
+
+            for part in p:
+                part1 = "".join([c for c in part if c in allowed_chars])
+                discards.update(c for c in part if c not in allowed_chars)
+                if len(part1) > 0:
+                    cur_sentence.append(part1)
+            if break_sentence:
                 finish_sentence()
-            else:
-                put_char(c)
+        if sentence_per_line:
+            finish_sentence()
 
         finish_sentence()
 
+    print(discards)
     return sentences
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3])
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])

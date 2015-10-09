@@ -18,5 +18,4 @@ sed 's/(.*$//' "$TRAIN_TRN" \
 | sort -u \
 >"$TRAIN_DIR/train.vocab"
 
-$BASE_DIR/base_scripts/vocab2lex.pl -read="$TRAIN_DIR/train.vocab" \
->>"$LEX"
+$BASE_DIR/base_scripts/vocab2lex.py $LANGDAT_DIR/phones $LANGDAT_DIR/abbreviations  < $TRAIN_DIR/train.vocab >"$LEX"

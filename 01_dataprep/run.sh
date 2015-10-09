@@ -24,12 +24,14 @@ TXT_DIR=$2
 
 MODEL=$3
 
+LANGDAT_DIR=$4
+
 RECIPE=work/recipe_$RANDOM
 > $RECIPE
 
 for txt in $(ls -1 $TXT_DIR/*.txt); do
     b=`basename $txt .txt`
-    ./parse_transcripts.py $txt work/${b}.phn out/${b}.trn
+    ./parse_transcripts.py $txt work/${b}.phn out/${b}.trn $LANGDAT_DIR
     echo "audio=${WAV_DIR}/${b}.wav transcript=work/${b}.phn alignment=work/${b}.aligned" >> $RECIPE
 done
 

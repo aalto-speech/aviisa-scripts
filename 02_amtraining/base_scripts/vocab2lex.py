@@ -33,7 +33,7 @@ def main(phone_map, abbreviations):
             rtrans = ["_"]+trans+["_"]
             for i in range(1, len(trans)+1):
                 o.write("{}-{}+{}".format(rtrans[i-1],rtrans[i],rtrans[i+1]).encode("iso-8859-15"))
-        o.write("\n")
+        o.write(b"\n")
 
 if __name__ == "__main__":
     main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)

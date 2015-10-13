@@ -31,7 +31,7 @@ def main(phone_map, abbreviations):
         transcriptions = set(tuple(t) for t in transcriptions)
         for trans in transcriptions:
             o.write("{} ({:.1f})  ".format(word, 1/len(transcriptions)).encode("utf-8"))
-            rtrans = ["_"]+trans+["_"]
+            rtrans = ["_"]+list(trans)+["_"]
             for i in range(1, len(trans)+1):
                 o.write("{}-{}+{} ".format(rtrans[i-1],rtrans[i],rtrans[i+1]).encode("iso-8859-15"))
             o.write(b"\n")

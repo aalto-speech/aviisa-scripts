@@ -9,7 +9,7 @@ def main(phone_map, abbreviations):
                            for l in open(phone_map, encoding='utf-8'))}
     abbr_map = {v[0]: v[1].strip().split(',')
                 for v in (l.split(None, 1)
-                          for l in open(abbreviations, encoding='utf-8'))} if abbreviations is not None else {}
+                          for l in open(abbreviations, encoding='utf-8') if len(l.strip()) > 0)} if abbreviations is not None else {}
 
     o = sys.stdout.buffer
     o.write(b"__(1.0) __\n")

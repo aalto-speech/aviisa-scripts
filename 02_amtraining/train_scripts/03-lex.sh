@@ -19,7 +19,7 @@ sed 's/(.*$//' "$TRAIN_TRN" \
 >"$TRAIN_DIR/train.vocab"
 
 cat $LANGDAT_DIR/abbreviations > $TRAIN_DIR/extra_abbr
-seq 1 10000 | $LANGDAT_DIR/number_to_words > $TRAIN_DIR/extra_nums
-seq 1 10000 | paste -d" " - $TRAIN_DIR/extra_nums >> $TRAIN_DIR/extra_abbr
+seq 1 1000 | $LANGDAT_DIR/number_to_words > $TRAIN_DIR/extra_nums
+seq 1 1000 | paste -d" " - $TRAIN_DIR/extra_nums >> $TRAIN_DIR/extra_abbr
 
 $BASE_DIR/base_scripts/vocab2lex.py $LANGDAT_DIR/phones $TRAIN_DIR/extra_abbr  < $TRAIN_DIR/train.vocab >"$LEX"

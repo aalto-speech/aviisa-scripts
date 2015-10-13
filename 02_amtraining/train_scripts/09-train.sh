@@ -9,4 +9,6 @@ fi
 
 source "$1"
 
+export TRAIN_TIERULES=$LANGDAT_DIR/rules
+
 "$BASE_DIR/base_scripts/train.pl"

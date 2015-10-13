@@ -7,8 +7,8 @@ export TRAIN_IM="$GROUP_DIR/p/saami2015/sami_ph/samiph2015a"
 export TRAIN_RECIPE="$TRAIN_DIR/recipe"
 export TRAIN_LEX="$TRAIN_DIR/train.lex"
 
-export TRAIN_TRN="$GROUP_DIR/p/sami/uit-sme-F-13.10/train.trn"
-export TRAIN_WAVLIST="$GROUP_DIR/p/sami/uit-sme-F-13.10/train.scp"
+export TRAIN_TRN="$GROUP_DIR/p/sami/uit-sme-F_13.10/train.trn"
+export TRAIN_WAVLIST="$GROUP_DIR/p/sami/uit-sme-F_13.10/train.scp"
 
 export TRAIN_GAUSSIANS=12000
 export TRAIN_BATCHES=5

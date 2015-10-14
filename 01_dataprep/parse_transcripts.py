@@ -8,13 +8,13 @@ import sys
 import collections
 
 
-def main(txt_file, phn_file, transcript_file, langdat_dir):
+def main(txt_file, phn_file, transcript_file, langdat_dir, sentence_per_line):
 
     phone_map = {v[0]: v[1].strip() for v in (l.split(None, 1) for l in open('{}/phones'.format(langdat_dir), encoding='utf-8'))}
-    abbr_map = {v[0]: v[1].strip().split() for v in (l.split(None, 1) for l in open('{}/abbreviations'.format(langdat_dir), encoding='utf-8'))}
+    abbr_map = {v[0]: v[1].strip().split() for v in (l.split(None, 1) for l in open('{}/abbreviations'.format(langdat_dir), encoding='utf-8') if len(l.strip()) > 0)}
     allowed_chars = set(phone_map.keys()) | set(string.digits)
 
-    sentences = find_sentences(open(txt_file), allowed_chars, abbr_map)
+    sentences = find_sentences(open(txt_file), allowed_chars, abbr_map, sentence_per_line)
     def get_number_trans(word):
         (trans, _) = Popen(['{}/number_to_words'.format(langdat_dir)], stdin=PIPE, stderr=PIPE, stdout=PIPE).communicate(word.encode('utf-8'))
         return [trans.decode('utf-8').strip().split(',')[0]]
@@ -118,11 +118,12 @@ def find_sentences(f, allowed_chars, abbr_map, sentence_per_line=True):
                 finish_sentence()
         if sentence_per_line:
             finish_sentence()
-
-        finish_sentence()
-
+    finish_sentence()
     print(discards)
     return sentences
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    sentence_per_line = True
+    if len(sys.argv) > 5:
+        sentence_per_line = not sys.argv[5].startswith("nosplit")
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sentence_per_line)

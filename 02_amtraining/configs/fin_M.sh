@@ -2,13 +2,13 @@ export TRAIN_NAME='fin_M'
 export TRAIN_DIR="$GROUP_DIR/p/sami/models/$TRAIN_NAME"
 export TRAIN_ALIGN_DIR="$TRAIN_DIR/align"
 
-export TRAIN_IM="$GROUP_DIR/p/sami/initial_models/speecon_mfcc_gain3500_occ225_mpe_19kmorphs_1gram_extviterbi_27.11.2007_4"
+export TRAIN_IM="$GROUP_DIR/p/sami/initial_models/fin_M_17.10.2015_22"
 
 export TRAIN_RECIPE="$TRAIN_DIR/recipe"
 export TRAIN_LEX="$TRAIN_DIR/train.lex"
 
-export TRAIN_TRN="$GROUP_DIR/p/sami/audio_data/fin-M/train.trn"
-export TRAIN_WAVLIST="$GROUP_DIR/p/sami/audio_data/fin-M/train.scp"
+export TRAIN_TRN="$GROUP_DIR/p/sami/audio_data/fin_M/train.trn"
+export TRAIN_WAVLIST="$GROUP_DIR/p/sami/audio_data/fin_M/train.scp"
 
 export TRAIN_GAUSSIANS=30000
 export TRAIN_BATCHES=5

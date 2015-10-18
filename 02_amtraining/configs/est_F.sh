@@ -2,13 +2,13 @@ export TRAIN_NAME='est_F'
 export TRAIN_DIR="$GROUP_DIR/p/sami/models/$TRAIN_NAME"
 export TRAIN_ALIGN_DIR="$TRAIN_DIR/align"
 
-export TRAIN_IM="$GROUP_DIR/p/sami/initial_models/eesti2014_BN_18.11.2014_22"
+export TRAIN_IM="$GROUP_DIR/p/sami/initial_models/est_F_14.10.2015_22"
 
 export TRAIN_RECIPE="$TRAIN_DIR/recipe"
 export TRAIN_LEX="$TRAIN_DIR/train.lex"
 
-export TRAIN_TRN="$GROUP_DIR/p/sami/audio_data/est-F/train.trn"
-export TRAIN_WAVLIST="$GROUP_DIR/p/sami/audio_data/est-F/train.scp"
+export TRAIN_TRN="$GROUP_DIR/p/sami/audio_data/est_F/train.trn"
+export TRAIN_WAVLIST="$GROUP_DIR/p/sami/audio_data/est_F/train.scp"
 
 export TRAIN_GAUSSIANS=30000
 export TRAIN_BATCHES=25

@@ -48,11 +48,14 @@ RECIPE=$WD/recipe
 
 for txt in $(ls -1 $TXT_DIR/*.txt); do
     b=`basename $txt .txt`
-    ./parse_transcripts.py $txt $WD/${b}.phn $TARGET_DIR/${b}.trn $LANGDAT_DIR $TARGET_DIR $6
+    ./parse_transcripts.py $txt $WD/${b}.phn $TARGET_DIR/${b}.trn $LANGDAT_DIR $6
     echo "audio=${WAV_DIR}/${b}.wav transcript=${WD}/${b}.phn alignment=${WD}/${b}.aligned" >> $RECIPE
 done
 
-align -b $MODEL -c ${MODEL}.cfg -r $RECIPE --beam=2000 --sbeam=2000 --phoseg -i 1
+for b in $(seq 1 8); do
+align -B 8 -I $b -b $MODEL -c ${MODEL}.cfg -r $RECIPE --beam=10000 --sbeam=4000 --swins=2000 --phoseg -i 1 &
+done
+wait
 
 for txt in $(ls -1 $TXT_DIR/*.txt); do
 b=`basename $txt .txt`

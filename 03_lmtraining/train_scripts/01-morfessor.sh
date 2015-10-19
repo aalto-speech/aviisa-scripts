@@ -29,7 +29,7 @@ if [ ! -z ${MORPH_TRAIN_OPTIONS+x} ]; then
 
 else
     cat ${SOURCE_FILES[@]} | \
-    sed 's/(.*$//' \
+    sed 's/(.*$//' | \
     grep -v "[0-9\.]" | \
     sed "s#^#<s> #" | sed 's#$# </s>#' > $TRAIN_DIR/lm_source_txt
 

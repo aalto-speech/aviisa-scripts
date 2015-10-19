@@ -17,7 +17,7 @@ head -n ${VARIKN_DEVSIZE} $TRAIN_DIR/lm_source_txt_rand > $TRAIN_DIR/varikn_dev
 tail -n +${VARIKN_DEVSIZE} $TRAIN_DIR/lm_source_txt_rand > $TRAIN_DIR/varikn_train
 
 
-varigram_kn -3 -C -a -Z -n 4 -o /triton/ics/project/puhe/c/sami_speech/morf_model/varigram_discount_data_25.txt /triton/ics/project/puhe/c/sami_speech/morf_model/varigram_lm_morf_25.txt /triton/elec/work/jpleino1/saami2015_BN_dev/dev_29/models/old_vk_lm4.lm
+varigram_kn $VARIKN_OPTIONS -3 -C -a -Z -U $TRAIN_DIR/vocab -n $NGRAM_ORDER -o $TRAIN_DIR/varikn_dev $TRAIN_DIR/varikn_train "$TRAIN_DIR/${TRAIN_NAME}"
 
 else
 

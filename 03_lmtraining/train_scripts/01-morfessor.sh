@@ -18,6 +18,7 @@ if [ ! -z ${MORPH_TRAIN_OPTIONS+x} ]; then
 
     cat ${SOURCE_FILES[@]} | \
     sed 's/(.*$//' | \
+    grep -v "[0-9\.]" | \
     morfessor-train $MORPH_TRAIN_OPTIONS -d ones -s $TRAIN_DIR/morfessor.bin -
     cat $SOURCE_FILES | \
     sed 's/(.*$//' | \
@@ -26,6 +27,7 @@ if [ ! -z ${MORPH_TRAIN_OPTIONS+x} ]; then
 else
     cat ${SOURCE_FILES[@]} | \
     sed 's/(.*$//' \
+    grep -v "[0-9\.]" | \
     > $TRAIN_DIR/lm_source_txt
 
 fi

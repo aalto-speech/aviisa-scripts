@@ -9,7 +9,7 @@ for lang in ("sme", "est", "fin"):
                         print("export TRAIN_NAME='{}{}_s1w_{}_{}g_{}'".format(lang,gender,tool,order,type), file=f)
                         print("export TRAIN_DIR=$GROUP_DIR/p/sami/lmmodels/$TRAIN_NAME", file=f)
                         print(file=f)
-                        print("export SOURCE_FILES=$GROUP_DIR/p/sami/audio_data/{}_{}/train.trn:$GROUP_DIR/p/lmdata/{}/wikipedia.txt".format(lang, gender, lang, "" if lang is "sme" else "_small"), file=f)
+                        print("export SOURCE_FILES=$GROUP_DIR/p/sami/audio_data/{}_{}/train_9000.trn:$GROUP_DIR/p/sami/lmdata/{}/wikipedia_small.txt".format(lang, gender, lang), file=f)
                         print(file=f)
                         print("export NGRAM_ORDER={}".format(order), file=f)
                         print("export PRUNE_THRESHOLD=5e-9", file=f)

@@ -1,7 +1,7 @@
 export TRAIN_NAME='sme_F_vkn_10g_m'
 export TRAIN_DIR="$GROUP_DIR/p/sami/lmmodels/$TRAIN_NAME"
 
-export SOURCE_FILES=$GROUP_DIR/p/sami/audio_files/sme_F/train.trn:$GROUP_DIR/p/sami/wikipedia.txt
+export SOURCE_FILES=$GROUP_DIR/p/sami/audio_data/sme_F/train.trn:$GROUP_DIR/p/sami/wikipedia.txt
 
 export NGRAM_ORDER=10
 

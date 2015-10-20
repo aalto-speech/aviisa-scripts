@@ -6,7 +6,7 @@ import glob
 for lang in ("sme", "est", "fin"):
     for gender in ("M", "F"):
         for tool in ("s", "v"):
-            for order in range(5,9):
+            for order in range(5,10):
                 for type in ("m", "w"):
                     with open("{}{}_s1w_{}_{}g_{}.sh".format(lang,gender,tool,order,type), 'w') as f:
                         print("export TEST_NAME='{}{}_s1w_{}_{}g_{}'".format(lang,gender,tool,order,type), file=f)

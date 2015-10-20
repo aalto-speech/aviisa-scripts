@@ -21,4 +21,7 @@ for lang in ("sme", "est", "fin"):
                             print("export MORPH_TRAIN_OPTIONS=\"\"", file=f)
                         if tool == "v":
                             print("export VARIKN_OPTIONS=\"\"", file=f)
-                            print("export VARIKN_DEVSIZE=1000", file=f)
+                            count = 100
+                            if lang != "sme":
+                                count = 100000
+                            print("export VARIKN_DEVSIZE={}".format(count), file=f)

@@ -7,7 +7,7 @@ for lang in ("sme", "est", "fin"):
                 for type in ("m", "w"):
                     with open("{}{}_s1w_{}_{}g_{}.sh".format(lang,gender,tool,order,type), 'w') as f:
                         print("export TRAIN_NAME='{}{}_s1w_{}_{}g_{}'".format(lang,gender,tool,order,type), file=f)
-                        print("export TRAIN_DIR=$GROUP_DIR/p/sami/lmmodels/$TRAIN_NAME", file=f)
+                        print("export TRAIN_DIR=$GROUP_DIR/p/sami/lmmodels/small1_wikipedia/$TRAIN_NAME", file=f)
                         print(file=f)
                         print("export SOURCE_FILES=$GROUP_DIR/p/sami/audio_data/{}_{}/train_9000.trn:$GROUP_DIR/p/sami/lmdata/{}/wikipedia_small.txt".format(lang, gender, lang), file=f)
                         print(file=f)

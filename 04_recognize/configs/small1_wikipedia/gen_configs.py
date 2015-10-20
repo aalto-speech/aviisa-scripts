@@ -19,7 +19,7 @@ for lang in ("sme", "est", "fin"):
                         am = possible_ams[0][:-3]
 
                         print("export TEST_AM={}".format(am), file=f)
-                        print("export TEST_LM=$GROUP_DIR/p/sami/lmmodels/{}{}_s1w_{}_{}g_{}".format(lang,gender,tool,order,type), file=f)
+                        print("export TEST_LM=$GROUP_DIR/p/sami/lmmodels/small1_wikipedia/{}{}_s1w_{}_{}g_{}".format(lang,gender,tool,order,type), file=f)
 
                         print("export TEST_TRN=$GROUP_DIR/p/sami/audio_data/{}_{}/devel.trn".format(lang, gender), file=f)
                         print("export TEST_WAVLIST=$GROUP_DIR/p/sami/audio_data/{}_{}/devel.scp".format(lang, gender), file=f)

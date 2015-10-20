@@ -8,9 +8,9 @@ for lang in ("sme", "est", "fin"):
         for tool in ("s", "v"):
             for order in range(5,9):
                 for type in ("m", "w"):
-                    with open("{}{}_s1w_{}_{}g_{}.sh".format(lang,gender,tool,order,type), 'w') as f:
-                        print("export TEST_NAME='{}{}_s1w_{}_{}g_{}'".format(lang,gender,tool,order,type), file=f)
-                        print("export TEST_DIR=$GROUP_DIR/p/sami/recog_tests/small1_wikipedia/$TRAIN_NAME", file=f)
+                    with open("{}{}_s1_{}_{}g_{}.sh".format(lang,gender,tool,order,type), 'w') as f:
+                        print("export TEST_NAME='{}{}_s1_{}_{}g_{}'".format(lang,gender,tool,order,type), file=f)
+                        print("export TEST_DIR=$GROUP_DIR/p/sami/recog_tests/small1/$TRAIN_NAME", file=f)
                         print(file=f)
                         print("export TEST_LM_SCALES=30", file=f)
                         print(file=f)
@@ -19,7 +19,7 @@ for lang in ("sme", "est", "fin"):
                         am = possible_ams[0][:-3]
 
                         print("export TEST_AM={}".format(am), file=f)
-                        print("export TEST_LM=$GROUP_DIR/p/sami/lmmodels/{}{}_s1w_{}_{}g_{}".format(lang,gender,tool,order,type), file=f)
+                        print("export TEST_LM=$GROUP_DIR/p/sami/lmmodels/small1/{}{}_s1_{}_{}g_{}".format(lang,gender,tool,order,type), file=f)
 
                         print("export TEST_TRN=$GROUP_DIR/p/sami/audio_data/{}_{}/devel.trn".format(lang, gender), file=f)
                         print("export TEST_WAVLIST=$GROUP_DIR/p/sami/audio_data/{}_{}/devel.scp".format(lang, gender), file=f)

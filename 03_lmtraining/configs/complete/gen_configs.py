@@ -5,7 +5,7 @@ for lang in ("sme", "est", "fin"):
         for tool in ("s", "v"):
             for order in range(5,9):
                 for type in ("m", "w"):
-                    with open("{}{}_cow_{}_{}g_{}.sh".format(lang,gender,tool,order,type), 'w') as f:
+                    with open("{}{}_co_{}_{}g_{}.sh".format(lang,gender,tool,order,type), 'w') as f:
                         print("export TRAIN_NAME='{}{}_co_{}_{}g_{}'".format(lang,gender,tool,order,type), file=f)
                         print("export TRAIN_DIR=$GROUP_DIR/p/sami/lmmodels/complete/$TRAIN_NAME", file=f)
                         print(file=f)

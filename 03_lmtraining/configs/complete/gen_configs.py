@@ -22,6 +22,4 @@ for lang in ("sme", "est", "fin"):
                         if tool == "v":
                             print("export VARIKN_OPTIONS=\"\"", file=f)
                             count = 100
-                            if lang != "sme":
-                                count = 100000
                             print("export VARIKN_DEVSIZE={}".format(count), file=f)

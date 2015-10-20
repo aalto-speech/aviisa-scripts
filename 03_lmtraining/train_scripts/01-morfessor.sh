@@ -15,13 +15,13 @@ SOURCE_FILES=(${SOURCE_FILES//:/ })
 echo ${SOURCE_FILES[@]}
 
 if [ ! -z ${MORPH_TRAIN_OPTIONS+x} ]; then
-
+if [ ! -f $TRAIN_DIR/morfessor.bin ]; then
     cat ${SOURCE_FILES[@]} | \
     sed 's/(.*$//' | \
     grep -v "[0-9\.]" | \
     morfessor-train $MORPH_TRAIN_OPTIONS -d ones -s $TRAIN_DIR/morfessor.bin -
-
-    cat $SOURCE_FILES | \
+fi
+    cat ${SOURCE_FILES[@]} | \
     sed 's/(.*$//' | \
     grep -v "[0-9\.]" | \
     morfessor-segment -l $TRAIN_DIR/morfessor.bin --output-format "{analysis} <w> " --output-newlines - | \

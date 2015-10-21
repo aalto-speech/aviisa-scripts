@@ -19,12 +19,12 @@ if [ ! -f $TRAIN_DIR/morfessor.bin ]; then
     cat ${SOURCE_FILES[@]} | \
     sed 's/(.*$//' | \
     grep -v "[0-9\.]" | \
-    morfessor-train $MORPH_TRAIN_OPTIONS -d ones -s $TRAIN_DIR/morfessor.bin -
+    ${BASE_DIR}/env_morfessor/bin/morfessor-train $MORPH_TRAIN_OPTIONS -d ones -s $TRAIN_DIR/morfessor.bin -
 fi
     cat ${SOURCE_FILES[@]} | \
     sed 's/(.*$//' | \
     grep -v "[0-9\.]" | \
-    morfessor-segment -l $TRAIN_DIR/morfessor.bin --output-format "{analysis} <w> " --output-newlines - | \
+    ${BASE_DIR}/env_morfessor/bin/morfessor-segment -l $TRAIN_DIR/morfessor.bin --output-format "{analysis} <w> " --output-newlines - | \
     sed "s#^#<s> #" | sed 's#$# </s>#' > $TRAIN_DIR/lm_source_txt
 
 else

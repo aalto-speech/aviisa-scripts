@@ -3,9 +3,6 @@
 from os import path
 import os
 
-print(os.environ)
-
-
 def exists_and_not_empty(f):
     try:
         return path.getsize(f) > 100
@@ -13,8 +10,8 @@ def exists_and_not_empty(f):
         return False
 
 def check():
-    files = [path.join(os.environ['TRAIN_DIR'], os.environ['TRAIN_name']),
-             path.join(os.environ['TRAIN_DIR'], os.environ['TRAIN_name']+".fsabin"),
+    files = [path.join(os.environ['TRAIN_DIR'], os.environ['TRAIN_NAME']),
+             path.join(os.environ['TRAIN_DIR'], os.environ['TRAIN_NAME']+".fsabin"),
              path.join(os.environ['TRAIN_DIR'], "model_la"),
              path.join(os.environ['TRAIN_DIR'], "model_la.bin"),
              path.join(os.environ['TRAIN_DIR'], "vocab.lex"),
@@ -22,7 +19,7 @@ def check():
 
     for f in files:
         if not exists_and_not_empty(f):
-            print(os.environ['TRAIN_name'])
+            print(os.environ['TRAIN_NAME'])
             exit(1)
 
 if __name__ == "__main__":

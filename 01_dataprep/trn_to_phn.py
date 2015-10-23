@@ -3,8 +3,8 @@ import os
 
 import sys
 
-def main(trn_file, phn_dir):
-    phone_map = {v[0]: v[1].strip() for v in (l.split(None, 1) for l in open('data/phone_map', encoding='utf-8'))}
+def main(langdat_dir, trn_file, phn_dir):
+    phone_map = {v[0]: v[1].strip() for v in (l.split(None, 1) for l in open('{}/phones'.format(langdat_dir), encoding='utf-8'))}
 
     for line in open(trn_file):
         parts = line.split()
@@ -43,4 +43,4 @@ def main(trn_file, phn_dir):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2], sys.argv[3])

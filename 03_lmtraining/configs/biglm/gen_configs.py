@@ -2,7 +2,7 @@
 
 for lang in ("sme", "est", "fin"):
     for gender in ("M", "F"):
-        for order in [4,10]:
+        for order in [4,10,20]:
             with open("{}{}_b_v_{}g_m.sh".format(lang,gender,order), 'w') as f:
                 print("export TRAIN_NAME='{}{}_b_v_{}g_m'".format(lang,gender,order), file=f)
                 print("export TRAIN_DIR=$GROUP_DIR/p/sami/lmmodels/biglm/$TRAIN_NAME", file=f)

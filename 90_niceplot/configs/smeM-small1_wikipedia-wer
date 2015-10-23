@@ -1,0 +1,6 @@
+LERs of different models with varying n-gram lengths
+LER[%]
+N-gram length
+small1_wikipedia/recognitions/sme_M_150m_18.10.2015_22--smeM_s1w_s_*g_w-fsa-b280-s30-tl100k.trn.sclite_wer Word model (SRILM)
+small1_wikipedia/recognitions/sme_M_150m_18.10.2015_22--smeM_s1w_s_*g_m-fsa-b280-s30-tl100k.trn.sclite_wer Morph model (SRILM)
+small1_wikipedia/recognitions/sme_M_150m_18.10.2015_22--smeM_s1w_v_*g_m-fsa-b280-s30-tl100k.trn.sclite_wer Morph model (VariKN)

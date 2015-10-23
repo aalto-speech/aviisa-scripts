@@ -18,15 +18,6 @@ TEST_AM=(${TEST_AM//:/ })
 LM_SCALES=(${TEST_LM_SCALES//:/ })
 
 
-function make_ler {
-   cat $1 | sed "s/(.*$//" | sed "s/ /_/g" | sed "s/\w/& /g" | paste -d" " - $2 > $3
-}
-
-function encode {
-    iconv -f UTF-8 -t $ONE_BYTE_ENCODING < $1 > $2
-}
-
-
 for AMDIR in ${TEST_AM[@]}; do
     for LMDIR in ${TEST_LM[@]}; do
         for LM_SCALE in ${LM_SCALES[@]}; do
@@ -58,18 +49,7 @@ for AMDIR in ${TEST_AM[@]}; do
 
         mkdir -p $td
 
-        grep -o "(.*$" $TEST_TRN > ${td}/namelist
-
-        make_ler $hyp_trn ${td}/namelist ${td}/hyp_ler.trn
-        make_ler $TEST_TRN ${td}/namelist ${td}/ref_ler.trn
-
-        encode ${td}/hyp_ler.trn ${td}/hyp_ler.iso.trn
-        encode ${td}/ref_ler.trn ${td}/ref_ler.iso.trn
-
-        encode $hyp_trn ${td}/hyp_wer.iso.trn
-        encode $TEST_TRN ${td}/ref_wer.iso.trn
-
-
+        ${BASE_DIR}/scripts/make_tests_trns.py $td $TEST_TRN $hyp_trn $ONE_BYTE_ENCODING
 
         sclite -i wsj -f 0 -h ${td}/hyp_wer.iso.trn -r ${td}/ref_wer.iso.trn | tee ${hyp_trn}.sclite_wer
         sclite -i wsj -f 0 -h ${td}/hyp_ler.iso.trn -r ${td}/ref_ler.iso.trn | tee ${hyp_trn}.sclite_ler

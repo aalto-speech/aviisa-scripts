@@ -16,6 +16,6 @@ for lang in ("sme", "est", "fin"):
 
             print("export MORPH_TRAIN_OPTIONS=\" --num-morph-types=60000 \"", file=f)
 
-            print("export VARIKN_OPTIONS=\"-s\"", file=f)
+            print("export VARIKN_OPTIONS=\"-s --dscale=0.0025\"", file=f)
             count = 20000
             print("export VARIKN_DEVSIZE={}".format(count), file=f)

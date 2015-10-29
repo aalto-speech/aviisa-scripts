@@ -50,7 +50,7 @@ for lang in ("sme", "est", "fin"):
     g = ("M", "F")
     if lang == "est":
         g = ("M", "F", "M2")
-
+    for gender in g:
         for order in [4,10,20]:
             with open("{}{}_b60kv_v_{}g_m.sh".format(lang, gender ,order), 'w') as f:
                 print("export TEST_NAME='{}{}_b60kv_v_{}g_m'".format(lang,gender,order), file=f)

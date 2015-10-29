@@ -4,7 +4,10 @@ import glob
 
 
 for lang in ("sme", "est", "fin"):
-    for gender in ("M", "F"):
+    g = ("M", "F")
+    if lang == "est":
+        g = ("M", "F", "M2")
+    for gender in g:
         for tool in ("s", "v"):
             for order in range(5,10):
                 for type in ("m", "w"):

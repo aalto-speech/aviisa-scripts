@@ -47,7 +47,10 @@ for lang in ("sme", "est", "fin"):
                 print("export ONE_BYTE_ENCODING=ISO-8859-10", file=f)
 
 for lang in ("sme", "est", "fin"):
-    for gender in ("M", "F"):
+    g = ("M", "F")
+    if lang == "est":
+        g = ("M", "F", "M2")
+
         for order in [4,10,20]:
             with open("{}{}_b60kv_v_{}g_m.sh".format(lang, gender ,order), 'w') as f:
                 print("export TEST_NAME='{}{}_b60kv_v_{}g_m'".format(lang,gender,order), file=f)

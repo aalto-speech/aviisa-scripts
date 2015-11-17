@@ -11,7 +11,7 @@ export TRAIN_TRN="$GROUP_DIR/p/sami/audio_data/est_F/train_9000.trn"
 export TRAIN_WAVLIST="$GROUP_DIR/p/sami/audio_data/est_F/train_9000.scp"
 
 export TRAIN_GAUSSIANS=30000
-export TRAIN_BATCHES=25
+export TRAIN_BATCHES=5
 #export TRAIN_CLUSTERS=5
 
 export TRAIN_SCRIPTDIR="$GROUP_DIR/Modules/src/git/AaltoASR/aku/scripts"

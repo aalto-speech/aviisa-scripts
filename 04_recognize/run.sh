@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --time=24:00:00 --mem-per-cpu=1000
+#SBATCH --time=24:00:00 --mem-per-cpu=12000
 #SBATCH -n1 -N1
 
 echo $1

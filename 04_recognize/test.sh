@@ -8,4 +8,4 @@ fi
 
 source $1
 
-test_scripts/test.py
+scripts/test.py

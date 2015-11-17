@@ -1,0 +1,6 @@
+SM1 system
+Word Error Rate[\%]
+$n$-gram order
+biglm/recognitions/sme_M_18.10.2015_22--sme_b60kv_s_*g_w-fsa-b280-s30-tl100k.trn.sclite_wer Word model (SRILM)
+biglm/recognitions/sme_M_18.10.2015_22--sme_b60kv_s_*g_m-fsa-b280-s30-tl100k.trn.sclite_wer Morph model (SRILM)
+biglm/recognitions/sme_M_18.10.2015_22--sme_b60kv_v_*g_m-fsa-b280-s30-tl100k.trn.sclite_wer Morph model (VariKN)

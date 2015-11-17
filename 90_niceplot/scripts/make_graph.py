@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+import itertools
+from matplotlib.markers import MarkerStyle
 import numpy as np
+from matplotlib import rc
 import matplotlib.pyplot as plt
 
 import os
@@ -56,6 +59,8 @@ def extract_error(f):
 
 
 def main(out_dir, config):
+    rc('font',**{'family':'serif','serif':['Libertine']})
+    rc('text', usetex=True)
     BD = os.path.join(os.environ['GROUP_DIR'], 'p', 'sami', 'recog_tests')
 
     config_name = os.path.basename(config)
@@ -66,20 +71,25 @@ def main(out_dir, config):
     line_configs = config[3:]
 
     plt.style.use('ggplot')
-    fig = plt.figure()
+    fig = plt.figure(figsize=(7,5))
 
-    plt.xlim([4,10])
+    plt.ylim([10,30])
+    plt.xlim([0,10])
+
+    marker = itertools.cycle(('x', '+', 'o', '*'))
+
     for lc in line_configs:
         p = lc.split(None, 1)
         files = sorted(glob.glob(os.path.join(BD, p[0])))
         x = [extract_x(p[0], f) for f in files]
         y = [extract_error(f) for f in files]
+        x, y = zip(*sorted(zip(x,y)))
 
 
         print(x)
         print(y)
 
-        plt.plot(x, y, '-', label=p[1])
+        plt.plot(x, y, linestyle='solid', marker=next(marker), label=p[1])
 
     plt.legend()
     plt.xlabel(xlabel)
